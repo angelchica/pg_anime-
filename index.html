@@ -9,6 +9,7 @@
   </head>
 
   <body>
+    <div class="loader"></div>
     <header>
       <div class="container">
         <a href="index.html" class="logo">
@@ -43,5 +44,20 @@
       src="https://kit.fontawesome.com/0b3eb0d831.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script>
+      $(window).load(function () {
+        $(".loader").fadeOut("slow");
+      });
+    </script>
   </body>
 </html>
+
+
+
+
+
+
+
+
+
