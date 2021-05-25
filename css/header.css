@@ -1,9 +1,9 @@
 header {
   width: 100vw;
   height: 60px;
-  background-color: black;
+  background-color: #000;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   position: fixed;
   z-index: 1;
@@ -25,7 +25,6 @@ header nav {
   right: 0;
   transition: 0.4s ease-in-out;
   overflow: hidden;
-
 }
 
 .mostrar {
@@ -47,10 +46,8 @@ header nav ul li a {
   padding: 10px;
 }
 
-
 header nav ul li a:hover {
   background-color: #f73333;
-
 }
 
 @media screen and (min-width: 768px) {

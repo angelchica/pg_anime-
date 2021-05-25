@@ -1,5 +1,6 @@
+@import "./container.css";
 @import "./header.css";
-@import"./hero.css";
+@import "./hero.css";
 
 * {
   margin: 0;
@@ -10,12 +11,6 @@ body {
   background-color: #202020;
 }
 
-ul{
+ul {
   list-style: none;
 }
- .container{
-   background-color: red;
-   width: 90vw;
-   height: 200vw;
-   margin: 0 auto;
- }
