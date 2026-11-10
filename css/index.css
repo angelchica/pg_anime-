@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Montserrat:wght@600;700;800;900&display=swap');
-@import "./container.css";
-@import "./header.css";
-@import "./hero.css";
-@import "./cards.css";
-@import "./modal.css";
+@import "./container.css?v=3";
+@import "./header.css?v=3";
+@import "./hero.css?v=3";
+@import "./cards.css?v=3";
+@import "./modal.css?v=3";
 
 :root {
   --bg-primary: #0b0c0f;

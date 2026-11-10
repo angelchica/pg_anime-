@@ -338,16 +338,17 @@ function getCrunchyrollUrl(anime, epNum = null) {
 }
 
 // ============================================================================
-// 2. LOADER DE PÁGINA
+// 2. LOADER DE PÁGINA (CON TIMEOUT DE SEGURIDAD)
 // ============================================================================
-window.addEventListener("load", () => {
+function hidePageLoader() {
   const loader = document.getElementById("pageLoader");
   if (loader) {
-    setTimeout(() => {
-      loader.classList.add("hidden");
-    }, 550);
+    loader.classList.add("hidden");
   }
-});
+}
+
+window.addEventListener("load", () => setTimeout(hidePageLoader, 450));
+setTimeout(hidePageLoader, 1200);
 
 // ============================================================================
 // 3. CARGA AUTOMÁTICA DE ANIMES Y EPISODIOS REALES DESDE JIKAN API
