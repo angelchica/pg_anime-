@@ -4,60 +4,431 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Anime</title>
+    <title>ANIME WORLD | Streaming</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <link rel="stylesheet" href="css/index.css" />
   </head>
 
   <body>
-    <div class="loader"></div>
+    <!-- Loader original del boceto -->
+    <div class="loader" id="pageLoader">
+      <div class="loader__content">
+        <div class="loader__brand">
+          <img src="assets/img/alas.png" alt="Logo Alas" width="38" height="30" />
+          ANIME <span>WORLD</span>
+        </div>
+        <div class="loader__bar">
+          <div class="loader__bar-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header minimalista: solo Logo, Buscador y Suscripción -->
     <header>
       <div class="container">
-        <a href="index.html" class="logo">
-          <img src="assets/img/alas.png" width="80" height="65"
-        /></a>
-        <button class="menu-toggle">
-          <i class="fas fa-bars" id="boton"></i>
-        </button>
+        <div class="header-left">
+          <a href="#inicio" class="logo">
+            <img src="assets/img/alas.png" width="80" height="65" alt="Anime World Logo" />
+            <div class="logo__text">ANIME<span>WORLD</span></div>
+          </a>
+        </div>
 
-        <nav id="menu">
-          <ul>
-            <li><a href="#">inicio</a></li>
-            <li><a href="#">experiencia</a></li>
-            <li><a href="#">proyectos</a></li>
-            <li><a href="#">blog</a></li>
-            <li><a href="#">contacto</a></li>
-          </ul>
-        </nav>
+        <div class="header-actions">
+          <div class="search-box">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Buscar anime..."
+              autocomplete="off"
+            />
+            <button class="search-clear-btn" id="searchClearBtn" title="Limpiar búsqueda">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <i class="fa-solid fa-magnifying-glass search-box__icon"></i>
+          </div>
+
+          <button class="user-avatar-btn" id="avatarBtn" title="Mi Cuenta (3 Capítulos Gratis/día o Cuenta Ilimitada)">
+            <img id="headerAvatarImg" src="assets/img/hola.jpg" alt="Mi Cuenta" />
+          </button>
+        </div>
       </div>
     </header>
-    <main class="container">
-      <section class="hero">
-        <article class="hero__imagen"></article>
-        <article class="hero__texto">
-          <h1>ANIME WORLD</h1>
-          <p></p>
-        </article>
+
+    <main class="main-content" id="inicio">
+      <!-- HERO BANNER LIMPIO ESTILO CRUNCHYROLL -->
+      <section class="hero" id="heroSection">
+        <div class="hero__backdrop" id="heroBackdrop"></div>
+
+        <div class="hero__container">
+          <article class="hero__texto" id="heroTextContainer">
+            <div class="hero__brand-badge">
+              <div class="hero__imagen" title="Sello Sharingan Original"></div>
+              <span id="heroTag">DESTACADO DE TEMPORADA</span>
+            </div>
+
+            <h1 id="heroTitle">ANIME WORLD</h1>
+
+            <div class="hero__meta" id="heroMeta">
+              <span class="badge-age">+16</span>
+              <span class="badge-lang">SUB | DOB</span>
+              <span class="badge-score"><i class="fa-solid fa-star"></i> 9.4</span>
+              <span class="hero__genres">Acción • Fantasía • Aventura</span>
+            </div>
+
+            <p class="hero__synopsis" id="heroSynopsis">
+              Disfruta de los mejores estrenos simultáneos desde Japón, clásicos legendarios y películas exclusivas en alta definición.
+            </p>
+
+            <div class="hero__actions">
+              <button class="btn-primary-crunchy" id="heroWatchBtn">
+                <i class="fa-solid fa-play"></i> COMENZAR A VER E1
+              </button>
+              <button class="btn-bookmark-crunchy" id="heroBookmarkBtn">
+                <i class="fa-regular fa-bookmark"></i> MI LISTA
+              </button>
+            </div>
+          </article>
+
+          <aside class="hero__poster-showcase">
+            <div class="hero__poster-card" id="heroPosterCard" title="Ver episodios">
+              <img id="heroPosterImg" src="assets/img/hola.jpg" alt="Poster Anime Destacado" />
+            </div>
+          </aside>
+        </div>
+
+        <div class="hero__indicators" id="heroIndicators"></div>
+      </section>
+
+      <!-- RESULTADOS DE BÚSQUEDA EN TIEMPO REAL (Oculto por defecto) -->
+      <section class="content-section" id="searchResultsSection" style="display: none;">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h2 class="section-title" id="searchTitle">Resultados de búsqueda</h2>
+            <p class="section-subtitle" id="searchSubtitle">Catálogo de Anime World</p>
+          </div>
+          <div class="section-controls">
+            <button class="view-all-link" id="closeSearchBtn">
+              <i class="fa-solid fa-xmark"></i> Cerrar
+            </button>
+          </div>
+        </div>
+        <div class="anime-grid" id="searchGrid"></div>
+      </section>
+
+      <!-- SECCIÓN: SEGUIR VIENDO -->
+      <section class="content-section" id="continueSection">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h2 class="section-title">Seguir Viendo</h2>
+          </div>
+        </div>
+        <div class="continue-row" id="continueRow"></div>
+      </section>
+
+      <!-- SECCIÓN: SIMULCASTS EN EMISIÓN -->
+      <section class="content-section" id="simulcasts">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h2 class="section-title">Simulcasts de Temporada</h2>
+          </div>
+          <div class="section-controls">
+            <button class="carousel-btn" data-scroll-target="simulcastRow" data-dir="-1" aria-label="Anterior">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn" data-scroll-target="simulcastRow" data-dir="1" aria-label="Siguiente">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="anime-row" id="simulcastRow"></div>
+      </section>
+
+      <!-- SECCIÓN: MÁS POPULARES -->
+      <section class="content-section" id="populares">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h2 class="section-title">Más Populares</h2>
+          </div>
+          <div class="section-controls">
+            <button class="carousel-btn" data-scroll-target="popularRow" data-dir="-1" aria-label="Anterior">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="carousel-btn" data-scroll-target="popularRow" data-dir="1" aria-label="Siguiente">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="anime-row" id="popularRow"></div>
+      </section>
+
+      <!-- BANNER DESTACADO INTERMEDIO -->
+      <section class="content-section" id="promo">
+        <div class="promo-banner" id="promoBanner"></div>
+      </section>
+
+      <!-- SECCIÓN: CATÁLOGO POR GÉNERO -->
+      <section class="content-section" id="catalogo">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h2 class="section-title">Explorar Catálogo</h2>
+          </div>
+        </div>
+
+        <div class="genre-bar" id="genreBar">
+          <button class="genre-pill active" data-genre="Todos" data-mal-genre="">Todos</button>
+          <button class="genre-pill" data-genre="Acción" data-mal-genre="1">Acción</button>
+          <button class="genre-pill" data-genre="Fantasía" data-mal-genre="10">Fantasía</button>
+          <button class="genre-pill" data-genre="Aventura" data-mal-genre="2">Aventura</button>
+          <button class="genre-pill" data-genre="Sobrenatural" data-mal-genre="37">Sobrenatural</button>
+          <button class="genre-pill" data-genre="Ciencia Ficción" data-mal-genre="24">Ciencia Ficción</button>
+          <button class="genre-pill" data-genre="Comedia" data-mal-genre="4">Comedia</button>
+          <button class="genre-pill" data-genre="Romance" data-mal-genre="22">Romance</button>
+        </div>
+
+        <div class="anime-grid" id="catalogGrid"></div>
+
+        <div class="catalog-load-more-wrap">
+          <button class="btn-bookmark-crunchy" id="loadMoreCatalogBtn">
+            <i class="fa-solid fa-plus"></i> Mostrar más animes
+          </button>
+        </div>
+      </section>
+
+      <!-- SECCIÓN: MI LISTA -->
+      <section class="content-section" id="mi-lista">
+        <div class="section-header">
+          <div class="section-title-group">
+            <h2 class="section-title">Mi Lista</h2>
+          </div>
+        </div>
+        <div class="anime-grid" id="watchlistGrid"></div>
       </section>
     </main>
+
+    <!-- MODAL REPRODUCTOR LIMPIO MULTI-SERVIDOR (MP4 + EMBED + ANIMEFLV + CRUNCHYROLL) -->
+    <div class="modal-overlay" id="animeModalOverlay" aria-hidden="true">
+      <div class="anime-modal" role="dialog" aria-modal="true">
+        <div class="anime-modal__topbar">
+          <div class="anime-modal__crumb">
+            <img src="assets/img/alas.png" alt="Logo" width="28" height="22" />
+            <strong id="modalTopSeriesTitle">Serie</strong>
+            <span>/</span>
+            <span class="ep-badge" id="modalTopEpBadge">E1</span>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="btn-small-secondary" id="prevEpTopBtn" title="Episodio anterior">
+              <i class="fa-solid fa-backward-step"></i>
+            </button>
+            <button class="btn-small-secondary" id="nextEpTopBtn" title="Siguiente episodio">
+              <i class="fa-solid fa-forward-step"></i>
+            </button>
+            <button class="modal-close-btn" id="closeModalBtn" aria-label="Cerrar reproductor">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="player-stage" id="playerStage"></div>
+
+        <!-- Barra compacta de servidores internos (100% dentro de la página) -->
+        <div class="player-toolbar">
+          <div class="audio-selector" id="audioSelector" style="flex-wrap: wrap;">
+            <button class="audio-pill active" data-mode="autostream">
+              <i class="fa-solid fa-play"></i> Servidor 1 (Episodio Sub)
+            </button>
+            <button class="audio-pill" data-mode="autodub">
+              <i class="fa-solid fa-microphone-lines"></i> Servidor 2 (Doblaje / Alt)
+            </button>
+            <button class="audio-pill" data-mode="animeflv">
+              <i class="fa-solid fa-tv"></i> Servidor 3 (AnimeFLV Interno)
+            </button>
+            <button class="audio-pill" data-mode="mp4">
+              <i class="fa-solid fa-film"></i> Servidor 4 (MP4 Directo)
+            </button>
+            <button class="audio-pill" data-mode="embed">
+              <i class="fa-brands fa-youtube"></i> Tráiler / Embed
+            </button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button class="btn-small-secondary" id="toggleCustomSourceBtn" title="Pegar iframe/link de AnimeFLV, MEGA o abrir MP4 local">
+              <i class="fa-solid fa-link"></i> Pegar Link / MP4
+            </button>
+            <button class="btn-bookmark-crunchy" id="modalBookmarkBtn" style="padding: 7px 12px; font-size: 0.76rem;">
+              <i class="fa-regular fa-bookmark"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Barra oculta para pegar directamente un código <iframe> de AnimeFLV, link Mega/MP4 o abrir archivo local -->
+        <div class="custom-source-bar" id="customSourceBar">
+          <span style="font-size: 0.78rem; font-weight: 800; color: var(--accent-red);">
+            <span id="customSourceEpLabel">E1</span>:
+          </span>
+          <input
+            type="text"
+            id="customSourceUrlInput"
+            placeholder="Pega aquí el <iframe> o link de AnimeFLV (Mega, OK.ru, Streamwish) o .mp4..."
+          />
+          <button class="btn-small-action" id="saveCustomSourceBtn">
+            Guardar
+          </button>
+          <label class="btn-small-secondary" for="localVideoFileInput" title="Abrir archivo de video desde tu PC">
+            <i class="fa-solid fa-folder-open"></i> Mi PC
+          </label>
+          <input type="file" id="localVideoFileInput" accept="video/*" style="display: none;" />
+        </div>
+
+        <div class="anime-modal__body">
+          <div class="anime-details-col">
+            <div class="anime-details__header">
+              <img class="anime-details__mini-poster" id="modalPoster" src="assets/img/hola.jpg" alt="Poster" />
+              <div class="anime-details__titles">
+                <h2 id="modalTitle">Título del Anime</h2>
+                <div class="anime-details__meta-row" id="modalMeta"></div>
+                <div class="anime-details__tags" id="modalTags"></div>
+              </div>
+            </div>
+            <p class="anime-details__synopsis" id="modalSynopsis"></p>
+          </div>
+
+          <div class="episodes-col">
+            <div class="episodes-col__header">
+              <h3>Episodios</h3>
+              <span class="season-badge" id="modalSeasonBadge">Temporada 1</span>
+            </div>
+            <div class="episodes-list" id="modalEpisodesList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DE CUENTA PROPIA (3 CAPÍTULOS GRATIS AL DÍA vs CUENTA ILIMITADA) -->
+    <div class="modal-overlay" id="profileModalOverlay" aria-hidden="true">
+      <div class="anime-modal" style="max-width: 580px;" role="dialog" aria-modal="true">
+        <div class="anime-modal__topbar">
+          <div class="anime-modal__crumb">
+            <img src="assets/img/alas.png" alt="Logo" width="28" height="22" />
+            <strong>Mi Cuenta Anime World</strong>
+            <span class="ep-badge" id="accountModalBadge">MODO GRATIS (3/DÍA)</span>
+          </div>
+          <button class="modal-close-btn" id="closeProfileModalBtn" aria-label="Cerrar">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="admin-form-grid">
+          <!-- Estado actual de capítulos diarios o cuenta ilimitada -->
+          <div class="form-group full-width">
+            <div class="profile-connected-box" id="profileConnectedBox">
+              <div class="profile-connected-user">
+                <img id="profileModalAvatar" src="assets/img/hola.jpg" alt="Avatar" />
+                <div>
+                  <h3 id="profileModalName" style="font-size: 1.1rem; font-weight: 900;">Visitante (Sin Cuenta)</h3>
+                  <p id="profileModalStatus" style="font-size: 0.82rem; color: var(--text-secondary); font-weight: 700;">
+                    Tienes 3 capítulos gratis al día. Crea tu cuenta gratis para ver sin límite.
+                  </p>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="btn-small-secondary"
+                id="logoutAccountBtn"
+                style="display: none;"
+              >
+                <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+              </button>
+
+              <div class="profile-stats-grid">
+                <div class="profile-stat-card">
+                  <strong id="statDailyRemaining">3 / 3</strong>
+                  <span>Capítulos Hoy</span>
+                </div>
+                <div class="profile-stat-card">
+                  <strong id="statEpisodesWatched">0</strong>
+                  <span>Vistos Hoy</span>
+                </div>
+                <div class="profile-stat-card">
+                  <strong id="statWatchlistCount">2</strong>
+                  <span>En Mi Lista</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario de Registro / Inicio de Sesión para desbloquear Ilimitado -->
+          <form id="authAccountForm" class="form-group full-width" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="authUsernameInput">Usuario *</label>
+              <input type="text" id="authUsernameInput" required placeholder="Ej: UchihaItachi" />
+            </div>
+
+            <div class="form-group">
+              <label for="authEmailInput">Correo Electrónico *</label>
+              <input type="email" id="authEmailInput" required placeholder="tu@correo.com" />
+            </div>
+
+            <div class="form-group full-width">
+              <label for="authPasswordInput">Contraseña *</label>
+              <input type="password" id="authPasswordInput" required placeholder="••••••••" />
+            </div>
+
+            <div class="form-group full-width" style="margin-top: 4px;">
+              <button type="submit" class="btn-primary-crunchy" style="width: 100%; justify-content: center;">
+                <i class="fa-solid fa-unlock-keyhole"></i> CREAR CUENTA / INICIAR SESIÓN (VER SIN LÍMITE)
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- FOOTER LIMPIO -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="footer-brand__logo">
+              <img src="assets/img/alas.png" alt="Logo Alas" />
+              <span>ANIME<em>WORLD</em></span>
+            </div>
+            <p>Streaming de anime en alta definición.</p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Explorar</h4>
+            <ul>
+              <li><a href="#simulcasts">Simulcasts</a></li>
+              <li><a href="#populares">Populares</a></li>
+              <li><a href="#catalogo">Catálogo</a></li>
+              <li><a href="#mi-lista">Mi Lista</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Fuentes</h4>
+            <ul>
+              <li><a href="https://animeflv.or.at/" target="_blank" rel="noopener noreferrer">AnimeFLV</a></li>
+              <li><a href="https://www.crunchyroll.com/es" target="_blank" rel="noopener noreferrer">Crunchyroll</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <span>© ANIME WORLD</span>
+          <span>Dark/Red Edition</span>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./js/mis-animes.js"></script>
     <script src="./js/script.js"></script>
-    <script
-      src="https://kit.fontawesome.com/0b3eb0d831.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script>
-      $(window).load(function () {
-        $(".loader").fadeOut("slow");
-      });
-    </script>
   </body>
 </html>
-
-
-
-
-
-
-
-
-
